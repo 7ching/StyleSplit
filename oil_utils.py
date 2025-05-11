@@ -1,9 +1,8 @@
 import random
-import time
 import numpy as np
 from skimage import draw
 from skimage.color import rgb2gray
-from skimage.filters import laplace as skimage_laplace # 避免名稱衝突
+from skimage.filters import laplace as skimage_laplace
 from scipy.ndimage import sobel
 from math import pi
 
@@ -64,19 +63,14 @@ def process(inputImage, brushSize, expressionLevel, brushes=BRUSHES, seed=None,
         random_rot = random.random() * pi
         brush_templates.append({'c_radius_val_at_base': c_radius_val, 'random_rotation': random_rot})
 
-    # 計算邊界
-    max_possible_r_radius = base_r_radius * max_brush_scale
-    max_possible_c_radius_factor = max(1.0, actual_expression_level)
-    max_abs_radius_component = max_possible_r_radius * max_possible_c_radius_factor
-    margin = int(np.ceil(max_abs_radius_component)) + 5
-
     result = np.zeros(inputImage.shape, dtype=np.uint8)
     
     # 筆刷間距
     step_size = max(1, int(base_r_radius * 2 * stroke_spacing_factor))
+    start_offset = step_size // 2
 
-    for x in range(margin, inputImage.shape[0] - margin, step_size):
-        for y in range(margin, inputImage.shape[1] - margin, step_size):
+    for x in range(start_offset, inputImage.shape[0], step_size):
+        for y in range(start_offset, inputImage.shape[1], step_size):
             # 1. 決定目前筆刷主半徑
             current_r_radius = base_r_radius
             if adaptive_brush_enabled and detail_map_norm is not None:
