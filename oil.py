@@ -18,5 +18,4 @@ for input_filename in input_filenames:
 
     result = process(image_rgb, brushSize=1.5, expressionLevel=2, seed=0)
 
-    result_bgr = cv2.cvtColor(result, cv2.COLOR_RGB2BGR)
-    cv2.imwrite(output_path, result_bgr)
+    cv2.imwrite(output_path, result)
