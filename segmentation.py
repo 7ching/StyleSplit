@@ -2,7 +2,7 @@ from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 import numpy as np
 
 
-def mask_generator(image, ckpt=r"D:\Codes\11302_CG\sam_vit_h_4b8939.pth"):
+def mask_generator(image, ckpt=r"./ckpt/sam_vit_h_4b8939.pth"):
     sam = sam_model_registry["default"](checkpoint=ckpt) # download from https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth
     mask_generator = SamAutomaticMaskGenerator(sam, min_mask_region_area=5000)
     masks = mask_generator.generate(image)
