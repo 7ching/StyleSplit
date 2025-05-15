@@ -4,8 +4,6 @@ import numpy as np
 import cv2
 import io
 
-# Import your project's functions
-# Make sure these files and functions are correctly defined and accessible
 from segmentation import mask_generator, select_main
 from oil_utils import process as process_oil
 from watercolor_utils import (
@@ -24,12 +22,10 @@ from watercolor_utils import (
 from comic_utils import process_comic_style
 from sketch_utils import sketch as process_sketch
 
-# Helper function to apply watercolor style
 def apply_watercolor_style(image_np):
     """Applies the watercolor effect to an image."""
     image_bgr = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
     
-    # Resize if necessary, similar to your watercolor.py
     h, w = image_bgr.shape[:2]
     if h > 512:
         resize_factor = h / 512
@@ -75,13 +71,11 @@ if uploaded_file is not None:
             masks = mask_generator(original_image_np)
             st.session_state.masks_data = masks
             
-            # Create a preview of segmented regions
             preview_image = np.zeros_like(original_image_np)
             for i, mask_info in enumerate(masks):
-                color = np.random.randint(50, 200, size=3) # Avoid very dark/light colors for visibility
+                color = np.random.randint(50, 200, size=3)
                 preview_image[mask_info["segmentation"]] = color
             
-            # Blend with original for better context
             alpha = 0.6
             blended_preview = cv2.addWeighted(original_image_np, 1 - alpha, preview_image, alpha, 0)
             st.session_state.segmented_preview = blended_preview
@@ -188,8 +182,3 @@ if st.session_state.masks_data:
 
 st.markdown("---")
 st.markdown("Developed for StyleSplit project.")
-
-# To run this app:
-# 1. Save this code as app.py in your StyleSplit project directory.
-# 2. Make sure all imported util files (oil_utils.py, etc.) and models are in the correct paths.
-# 3. Open your terminal, navigate to the directory, and run: streamlit run app.py
