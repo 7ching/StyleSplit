@@ -64,7 +64,7 @@ if uploaded_file is not None:
     original_image_np = np.array(image)
     st.session_state.original_image_np = original_image_np
 
-    st.image(image, caption="Uploaded Image", use_column_width=True)
+    st.image(image, caption="Uploaded Image", use_container_width=True)
 
     if st.button("1. Generate Masks (SAM)"):
         with st.spinner("Generating masks..."):
@@ -82,7 +82,7 @@ if uploaded_file is not None:
             st.success(f"Generated {len(masks)} masks!")
 
 if st.session_state.segmented_preview is not None:
-    st.image(st.session_state.segmented_preview, caption="Segmented Regions Preview", use_column_width=True)
+    st.image(st.session_state.segmented_preview, caption="Segmented Regions Preview", use_container_width=True)
 
 
 if st.session_state.masks_data:
@@ -165,7 +165,7 @@ if st.session_state.masks_data:
                         # Apply the styled region only where the mask is true
                         final_image[mask_boolean] = styled_region_full[mask_boolean]
 
-                st.image(final_image, caption="Final Styled Image", use_column_width=True)
+                st.image(final_image, caption="Final Styled Image", use_container_width=True)
                 
                 # Provide download link
                 result_image = Image.fromarray(final_image)

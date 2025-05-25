@@ -1,0 +1,3 @@
+[server]
+# Disable file watcher to avoid issues with torch classes
+fileWatcherType = "none"
