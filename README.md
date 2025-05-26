@@ -38,14 +38,14 @@ StyleSplit/
 - Streamlit
 - Pillow
 - NumPy
-- OpenCV (`opencv-python`)
+- OpenCV (`opencv-contrib-python`)
 - PyTorch (with matching CUDA/cuDNN if using GPU)
 - Segment Anything
  
 You can install the necessary packages via pip:
 
 ```bash
-pip install segment_anything streamlit pillow numpy opencv-python torch torchvision 
+pip install segment_anything streamlit pillow numpy opencv-contrib-python torch torchvision 
 ```
 
 ## Setup
