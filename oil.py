@@ -14,8 +14,7 @@ for input_filename in input_filenames:
         image, (int(image.shape[1] / resize_factor), int(image.shape[0] / resize_factor))
     )
 
-    image_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-    result = process(image_rgb, brushSize=1.5, expressionLevel=2, seed=0)
+    result = process(image, brushSize=3, expressionLevel=2, seed=0)
 
     cv2.imwrite(output_path, result)

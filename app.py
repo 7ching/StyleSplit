@@ -26,12 +26,6 @@ def apply_watercolor_style(image_np):
     """Applies the watercolor effect to an image."""
     image_bgr = cv2.cvtColor(image_np, cv2.COLOR_RGB2BGR)
     
-    h, w = image_bgr.shape[:2]
-    if h > 512:
-        resize_factor = h / 512
-        image_bgr = cv2.resize(
-            image_bgr, (int(w / resize_factor), int(h / resize_factor))
-        )
 
     styled_image = adjust_color(image_bgr, model_path="./model/model.txt", style=-1)
     saliency_map, dist_field = compute_saliency_distance_field(styled_image)
@@ -61,6 +55,11 @@ if "segmented_preview" not in st.session_state:
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
+    # resize h to 512
+    if image.height > 512:
+        resize_factor = image.height / 512
+        new_width = int(image.width / resize_factor)
+        image = image.resize((new_width, 512), Image.LANCZOS)
     original_image_np = np.array(image)
     st.session_state.original_image_np = original_image_np
 
@@ -142,7 +141,7 @@ if st.session_state.masks_data:
                         # Oil process might need BGR
                         image_bgr = cv2.cvtColor(image_to_style, cv2.COLOR_RGB2BGR)
                         # Ensure correct brushSize and expressionLevel, or make them configurable
-                        styled_bgr = process_oil(image_bgr, brushSize=1.5, expressionLevel=2, seed=0)
+                        styled_bgr = process_oil(image_bgr, brushSize=3, expressionLevel=2, seed=0)
                         styled_region_full = cv2.cvtColor(styled_bgr, cv2.COLOR_BGR2RGB)
                     elif style_name == "Watercolor":
                         styled_region_full = apply_watercolor_style(image_to_style)
