@@ -29,7 +29,8 @@ StyleSplit/
 │   └── sam_vit_h_4b8939.pth # SAM model checkpoint
 ├── images/                  # Sample input and output images
 ├── output/                  # Generated composite outputs
-└── README.md                # Project overview and instructions
+├── README.md                # Project overview and instructions
+└── report.pdf               # Project report
 ``` 
 
 ## Dependencies
